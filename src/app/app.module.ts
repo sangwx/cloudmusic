@@ -11,13 +11,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
+import { HomeComponent } from './home/home.component';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
-  ],
+      HomeComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

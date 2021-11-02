@@ -82,7 +82,7 @@ import { NzPipesModule } from 'ng-zorro-antd/pipes';
     // NzBreadCrumbModule,
     // NzCalendarModule,
     // NzCardModule,
-    // NzCarouselModule,
+    NzCarouselModule,
     // NzCascaderModule,
     // NzCheckboxModule,
     // NzCollapseModule,

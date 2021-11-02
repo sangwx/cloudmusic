@@ -1,0 +1,13 @@
+<div class="home">
+  <div class="carousel-wrap">
+    <i nz-icon nzType="left" nzTheme="outline" class="changebtn" (click)="pre()"></i>
+    <nz-carousel nzAutoPlay class="carousel" [nzEffect]="'fade'" #NzCarouselComponent>
+      <div nz-carousel-content *ngFor="let item of banners" class="banner-item">
+          <a [href]="item.url">
+            <img [src]="item.imageUrl"/>
+          </a>
+      </div>
+    </nz-carousel>
+    <i nz-icon nzType="right" nzTheme="outline" class="changebtn" (click)="next()"></i>
+  </div>
+</div>

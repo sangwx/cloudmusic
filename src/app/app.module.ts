@@ -12,13 +12,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { HomeComponent } from './home/home.component';
-
+import { SingleSheetComponent } from './home/singleSheet/singleSheet.component';
 registerLocaleData(en);
 
 @NgModule({
   declarations: [	
     AppComponent,
-      HomeComponent
+      HomeComponent,
+      SingleSheetComponent
    ],
   imports: [
     BrowserModule,
@@ -26,8 +27,8 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    DemoNgZorroAntdModule,
 
-    DemoNgZorroAntdModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

@@ -15,5 +15,7 @@ export const environment = {
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
 export const api = {
-  banner: 'http://localhost:3000/banner'
+  banner: 'http://localhost:3000/banner',
+  hot: 'http://localhost:3000/playlist/hot',
+  personalized: 'http://localhost:3000/personalized'
 };

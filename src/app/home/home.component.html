@@ -10,4 +10,30 @@
     </nz-carousel>
     <i nz-icon nzType="right" nzTheme="outline" class="changebtn" (click)="next()"></i>
   </div>
+  <div class="discover-wrap">
+    <div class="discover-left">
+
+      <div class="hot-wrap">
+
+        <div class="hot-nav">
+          <div class="hot-re">
+            <i class="circle-icon"></i>
+            <h3>热门推荐</h3>
+            <nav>
+              <a *ngFor="let item of hotTags" href="">{{item.name}}</a>
+            </nav>
+          </div>
+          <div class="hot-more">
+            <a href="">更多</a>
+            <i nz-icon nzType="arrow-right" nzTheme="outline" style="color: red; font-size: 10px;"></i>
+          </div>
+        </div>
+
+        <div class="hot-content">
+          <app-singleSheet></app-singleSheet>
+        </div>
+      </div>
+    </div>
+    <div class="discover-right"></div>
+  </div>
 </div>

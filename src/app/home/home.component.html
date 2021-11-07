@@ -30,7 +30,9 @@
         </div>
 
         <div class="hot-content">
-          <app-singleSheet></app-singleSheet>
+          <ng-container *ngFor="let item of personalized">
+            <app-singleSheet [personalized]="item" class="hot"></app-singleSheet>
+          </ng-container>
         </div>
       </div>
     </div>

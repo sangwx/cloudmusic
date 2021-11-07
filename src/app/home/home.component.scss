@@ -6,9 +6,18 @@
   justify-content: center;
   align-items: center;
   .changebtn{
-    font-size: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
     color: white;
-    &:hover{background-color: rgb(119, 119, 119);}
+    width: 40px;
+    height: 70px;
+    &:hover{
+      background-color: rgba(0, 0, 0, 0.5);
+      transition-timing-function: ease-in-out;
+      transition: background-color 200ms;
+    }
   }
   .carousel{
     height: 400px;
@@ -26,7 +35,7 @@
   display: flex;
   justify-content: center;
   .discover-left{
-    background-color: rgb(4, 230, 4);
+    // background-color: rgb(4, 230, 4);
     width: 800px;
     .hot-wrap{
       .hot-nav{
@@ -75,10 +84,23 @@
           }
         }
       }
+      .hot-content{
+        // background-color: grey;
+        width: 100%;
+        padding: 0px 40px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content:left;
+        .hot{
+          margin: 10px;
+          height:210px;
+          width: 160px;
+        }
+      }
     }
   }
   .discover-right{
-    // background-color: yellow;
+    background-color: green;
     width: 280px;
   }
 }

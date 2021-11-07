@@ -13,13 +13,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { HomeComponent } from './home/home.component';
 import { SingleSheetComponent } from './home/singleSheet/singleSheet.component';
+import { PlayerComponent } from './player/player.component';
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [	
+  declarations: [		
     AppComponent,
       HomeComponent,
-      SingleSheetComponent
+      SingleSheetComponent,
+      PlayerComponent
    ],
   imports: [
     BrowserModule,

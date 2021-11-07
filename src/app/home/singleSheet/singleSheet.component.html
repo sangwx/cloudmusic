@@ -1,3 +1,15 @@
-<p>
-  singleSheet works!
-</p>
+<div class="cover-wrap">
+  <a href="" class="cover">
+    <img [src]="personalized.picUrl" alt="">
+  </a>
+  <div class="bot">
+    <div class="play-count">
+          <i nz-icon nzType="customer-service" nzTheme="fill"></i>
+          <h3>{{personalized.playCount}}</h3>
+    </div>
+      <i class="play" nz-icon nzType="play-circle" nzTheme="fill">
+        <a href=""></a>
+      </i>
+  </div>
+  <a href="" class="title">{{personalized.name}}</a>
+</div>

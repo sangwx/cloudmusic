@@ -25,7 +25,9 @@
         <a href=""><i class="songLink"></i></a>
       </div>
       <div class="barwrap">
-        <div class="barbg"></div>
+        <div class="barbg">
+          <app-playerSlider [curPercent]="10" [rdyPercent]="20"></app-playerSlider>
+        </div>
         <span class="time">2:30/3:30</span>
       </div>
     </div>
@@ -36,6 +38,9 @@
     </div>
     <div class="ctrl">
       <a href=""><i class="vol"></i></a>
+      <div class="volBar">
+        <app-playerSlider [vertical]="true" [curPercent]="20"></app-playerSlider>
+      </div>
       <a href=""><i class="loop"></i></a>
       <a href=""><i class="list"><span class="song-num">1</span></i></a>
     </div>

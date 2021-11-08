@@ -14,6 +14,7 @@ import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { HomeComponent } from './home/home.component';
 import { SingleSheetComponent } from './home/singleSheet/singleSheet.component';
 import { PlayerComponent } from './player/player.component';
+import { PlayerSliderComponent } from './player/playerSlider/playerSlider.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -21,7 +22,8 @@ registerLocaleData(en);
     AppComponent,
       HomeComponent,
       SingleSheetComponent,
-      PlayerComponent
+      PlayerComponent,
+      PlayerSliderComponent
    ],
   imports: [
     BrowserModule,

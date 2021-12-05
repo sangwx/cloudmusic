@@ -1,6 +1,6 @@
 import { NgStyle } from '@angular/common';
 import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
-import { distinct, distinctUntilChanged, filter, fromEvent, map, Observable, Observer, pluck, Subject, Subscriber, Subscription, switchMap, switchMapTo, take, takeUntil, takeWhile, tap } from 'rxjs';
+import { distinct, distinctUntilChanged, fromEvent, map, Observable, Observer, pluck, Subscriber, Subscription, take, takeUntil, takeWhile, tap } from 'rxjs';
 
 export type sliderStyle = {
   width?: string|null,
@@ -29,46 +29,67 @@ export class PlayerSliderComponent implements OnInit, OnChanges, OnDestroy {
   mousedown$!: Observable<any>
   mouseup$!: Observable<Event>
   mousemove$!: Observable<Number>
-  mouseup_!:Subscription;
-  mousedown_!:Subscription;
-  mousemove_!:Subscription;
-  mouseDown: boolean =false;
+  mouseup_:any=null;
+  mousedown_:any=null;
+  mousemove_:any=null;
 
   constructor(
-  ) { 
-  }
+    private ref: ChangeDetectorRef,
+  ) { }
 
   ngOnDestroy() {
-    this.mouseup_.unsubscribe();
-    this.mousedown_.unsubscribe();
-    this.mousemove_.unsubscribe();
+    if(this.mousedown_ instanceof Subscription){
+        this.mousedown_.unsubscribe();
+        this.mousedown_ = null;
+      };
   }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
-    this.BtnControl()
+    this.moveBtn()
   }
   
   ngOnChanges(changes: SimpleChanges): void {
     this.setRdyBarLength()
   }
 
+  cleareSbscribe(){
+    if(this.mouseup_ instanceof Subscription){
+      this.mouseup_.unsubscribe();
+      this.mouseup_ = null;
+    };
+    // if(this.mousedown_ instanceof Subscription){
+    //   this.mousedown_.unsubscribe();
+    //   this.mousedown_ = null;
+    // };
+    if(this.mousemove_ instanceof Subscription){
+      this.mousemove_.unsubscribe();
+      this.mousemove_ = null;
+    };
+  }
+
   getBarPosition(){
     let r = this.barbg.nativeElement.getBoundingClientRect();
-    // console.log(r);
+    console.log(r);
     return r
   }
 
   setBarLength(vertical:boolean,barInfo:{top:number,bottom:number,left:number,right:number,height:number,width:number},mouseXorYValue:number){
-    
-    let per = (vertical==false)?((mouseXorYValue-barInfo.left) / barInfo.width * 100):((barInfo.bottom - mouseXorYValue) / barInfo.height * 100)
-    per = per>100?100:per
-    per = per <0?0:per
-    // console.log(per);
-    this.curStyle.width = (vertical==false)? (per + "%") : '100%'
-    this.curStyle.height = (vertical==true)? (per + "%") : '100%'
+    if(vertical==false){
+      let per = (mouseXorYValue-barInfo.left) / barInfo.width * 100;
+      per = per>100?100:per
+      per = per <0?0:per
+      console.log(per);
+      this.curStyle.width = per + "%"
+    }else{
+      let per = (barInfo.bottom - mouseXorYValue) / barInfo.height * 100
+      per = per>100?100:per
+      per = per <0?0:per
+      console.log(per);
+      this.curStyle.height = per + "%"
+    }
   }
 
   setBtnPosition(vertical:boolean,mouseXY:number,r:{top:number,bottom:number,left:number,right:number,height:number,width:number}){
@@ -85,41 +106,40 @@ export class PlayerSliderComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  BtnControl(){
-    this.mouseup$ = fromEvent(document,'mouseup').pipe(
-      // tap(e=>console.log('mouseup')),
-      tap(e=>this.mouseDown=false)
-    )
+  moveBtn(){
+    this.cleareSbscribe();
+    // const r = this.getBarPosition();
+    this.mouseup$ = fromEvent(document,'mouseup')
     this.mousedown$ = fromEvent<any>(this.barbg.nativeElement,'mousedown').pipe(
-      tap(
-        e=>{
-          // console.log('mousedown');
-          this.mouseDown=true;
-      }),
-      pluck(this.vertical?'y':'x'),
-      tap(e=>{
-        const r = this.getBarPosition();
-        this.setBtnPosition(this.vertical,e,r);
-        this.setBarLength(this.vertical,r,e);
-      })
+      tap(e=>console.log('down')),
+      pluck<any>(this.vertical?'y':'x')
     )
+
     this.mousemove$ = fromEvent<any>(document,'mousemove').pipe(
-      // tap(e=>console.log(e)),
-      filter((e)=>this.mouseDown === true),
-      // pluck(this.vertical?'pageY':'pageX'),
-      pluck(this.vertical?'clientY':'clientX'),
-      // tap(e=>console.log('mousemove')),
-      tap((e:number)=>{
+      tap((e:any)=>{
+        e.stopPropagation();
+        e.preventDefault();
+      }),
+      pluck<any>(this.vertical?'pageY':'pageX'),
+      distinctUntilChanged(),
+      map((position:any)=>position),
+      takeUntil(this.mouseup$)
+    )
+
+    this.mousedown_ = this.mousedown$.subscribe(
+      (e:number)=>{
         const r = this.getBarPosition();
         this.setBtnPosition(this.vertical,e,r);
         this.setBarLength(this.vertical,r,e);
-      })
+        this.mouseup_ = this.mouseup$.subscribe(a=>{console.log("up");this.cleareSbscribe();});
+        this.mousemove_ = this.mousemove$.subscribe(
+          (mouseXY:any)=>{
+            this.setBtnPosition(this.vertical,mouseXY,r)
+            this.setBarLength(this.vertical,r,mouseXY);
+          }
+        )
+      }
     )
-
-    this.mousedown_ = this.mousedown$.subscribe()
-    this.mousemove_ = this.mousemove$.subscribe()
-    this.mouseup_ = this.mouseup$.subscribe()
-
   }
 
   setRdyBarLength(){

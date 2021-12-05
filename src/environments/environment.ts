@@ -17,5 +17,7 @@ export const environment = {
 export const api = {
   banner: 'http://localhost:3000/banner',
   hot: 'http://localhost:3000/playlist/hot',
-  personalized: 'http://localhost:3000/personalized'
+  personalized: 'http://localhost:3000/personalized',
+  songUrl: 'http://localhost:3000/song/url',
+  playList: 'http://localhost:3000/playlist/detail',
 };

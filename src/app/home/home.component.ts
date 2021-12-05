@@ -27,11 +27,11 @@ export class HomeComponent implements OnInit {
     this.homeService.getBanner().subscribe((data:Banner[]|undefined)=>{this.banners=data});
     this.homeService.getHotTags().subscribe(data => {
       this.hotTags=data?.sort((x:HotTag,y:HotTag)=>x.position-y.position).slice(0,5)
-      console.log(this.hotTags);
+      // console.log(this.hotTags);
     })
     this.homeService.getPersonalized().subscribe(data => {
       this.personalized=data;
-      console.log(this.personalized);
+      // console.log(this.personalized);
     })
     
   }

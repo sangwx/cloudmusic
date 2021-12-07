@@ -1,34 +1,38 @@
 <div class="playbar">
   <div class="wrap">
     <div class="btns">
-      <a href="" class="prv">
+      <a class="prv" (click)="pre()">
         <i class="icon prv"></i>
       </a>
       <a class="ply" (click)="play()">
         <i class="icon ply" [class.stp]="playing"></i>
       </a>
-      <a href="" class="nxt">
+      <a class="nxt" (click)="next()">
         <i class="icon nxt"></i>
       </a>
     </div>
     <div class="head">
       <a href="">
         <i class="mask">
-          <img src="../../assets/images/singer.jpg" alt="">
+          <img [src]="currentSong?.al?.picUrl" *ngIf="currentSong?.al?.picUrl" alt="">
         </i>
       </a>
     </div>
     <div class="play">
       <div class="words">
-        <a class="sng">老友记</a>
-        <a class="sing">李荣浩</a>
+        <a class="sng">{{currentSong?.al?.name}}</a>
+        <a class="sing">
+          <ng-container *ngFor="let item of currentSong?.ar">
+            {{item?.name}}
+          </ng-container>
+        </a>
         <a href=""><i class="songLink"></i></a>
       </div>
       <div class="barwrap">
         <div class="barbg">
-          <app-playerSlider [rdyPercent]="50"></app-playerSlider>
+          <app-playerSlider [rdyPercent]="50" (Cur)="ChangeCur($event)" [curPercent]="currentPer" [rdyPercent]="readyPer"></app-playerSlider>
         </div>
-        <span class="time">2:30/3:30</span>
+        <span class="time">{{audio.currentTime|minuteSeconds}}/{{audio.duration|minuteSeconds}}</span>
       </div>
     </div>
     <div class="oper">
@@ -39,7 +43,7 @@
     <div class="ctrl">
       <a (click)="hiddenVolumn()"><i class="vol"></i></a>
       <div class="volBar" [hidden]="hidden">
-        <app-playerSlider [vertical]="true"></app-playerSlider>
+        <app-playerSlider [vertical]="true" (Vol)="ChangeVolumn($event)"></app-playerSlider>
       </div>
       <a href=""><i class="loop"></i></a>
       <a href=""><i class="list"><span class="song-num">1</span></i></a>

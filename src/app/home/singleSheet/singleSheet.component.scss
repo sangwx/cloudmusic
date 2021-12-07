@@ -1,11 +1,9 @@
 .cover-wrap{
-    // background-color: aquamarine;
     width: 150px;
     height: 200px;
     position: relative;
     .cover{
         display: block;
-        // background-color: burlywood;
         width: 150px;
         height: 150px;
         img{
@@ -44,7 +42,6 @@
         }
     }
     .title{
-        // background-color: hotpink;
         padding: 3px;
         display: inline-block;
         overflow-wrap: break-word;
@@ -53,6 +50,5 @@
         &:hover{
             text-decoration: underline;
         }
-        // vertical-align: middle;
     }
 }

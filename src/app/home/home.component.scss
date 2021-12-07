@@ -1,5 +1,4 @@
 .home{
-  // background-color: rgb(0, 0, 20);
 }
 .carousel-wrap{
   display: flex;
@@ -31,22 +30,18 @@
   }
 }
 .discover-wrap{
-  // background-color: aqua;
   display: flex;
   justify-content: center;
   .discover-left{
-    // background-color: rgb(4, 230, 4);
     width: 800px;
     .hot-wrap{
       .hot-nav{
-        // background-color: hotpink;
         display: flex;
         justify-content: center;
         margin: 0px 10px;
         border-bottom: 2px red solid;
         .hot-re{
           display: flex;
-          // background-color: rgb(114, 106, 119);
           align-items: center;
           width: 710px;
           .circle-icon{
@@ -74,7 +69,6 @@
           }
         }
         .hot-more{
-          // background-color: indigo;
           width: 42px;
           display: flex;
           justify-content: space-between;
@@ -85,7 +79,6 @@
         }
       }
       .hot-content{
-        // background-color: grey;
         width: 100%;
         padding: 0px 40px;
         display: flex;

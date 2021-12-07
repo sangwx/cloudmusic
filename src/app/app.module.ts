@@ -20,15 +20,17 @@ import { playerReducer } from './player/store/player.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { MinuteSecondsPipe } from './pipes/minuteSeconds.pipe';
 registerLocaleData(en);
 
 @NgModule({
   declarations: [		
     AppComponent,
-      HomeComponent,
-      SingleSheetComponent,
-      PlayerComponent,
-      PlayerSliderComponent
+    HomeComponent,
+    SingleSheetComponent,
+    PlayerComponent,
+    PlayerSliderComponent,
+    MinuteSecondsPipe
    ],
   imports: [
     StoreModule.forRoot({player:playerReducer}),

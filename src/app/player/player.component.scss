@@ -12,13 +12,11 @@
     .wrap{
         width: 980px;
         height: 100%;
-        // background-color: rgb(193, 193, 207);
         justify-content: space-around;
         align-items: center;
         display: flex;
         .btns{
             display: flex;
-            // background-color: rgb(25, 218, 25);
             justify-content: space-between;
             height: 36px;
             align-items: center;
@@ -73,13 +71,11 @@
         .play{
             height: 100%;
             width: 581px;
-            // background-color: red;
             .words{
                 height: 28px;
                 width: 581px;
                 display: flex;
                 align-items: center;
-                // background-color: greenyellow;
                 a{
                     color: white;
                     margin: 0px 10px;
@@ -105,7 +101,6 @@
                 .barbg{
                     height: 9px;
                     width: 493px;
-                    // background-color: white;
                 }
                 .time{
                     color: white;
@@ -121,14 +116,12 @@
             width: 87px;
             height: 36px;
             display: flex;
-            // background-color: yellow;
             a{
                 i{
                     margin: 11px 2px;
                     display: block;
                     height: 20px;
                     width: 20px;
-                    // background-color: blueviolet;
                     background-image: url("../../assets/images/playbar.png");
                     &.pip{
                         background-position: 0px -55px;
@@ -154,7 +147,6 @@
         .ctrl{
             height: 36px;
             width: 113px;
-            // background-color: yellowgreen;
             position: relative;
             display: flex;
             a{
@@ -163,7 +155,6 @@
                     display: block;
                     height: 20px;
                     width: 20px;
-                    // background-color: blueviolet;
                     background-image: url("../../assets/images/playbar.png");
                     &.vol{
                         background-position: -5px -250px;
@@ -228,7 +219,6 @@
             justify-content: center;
             right: -150px;
             top: -20px;
-            // background-color: yellow;
             background-image: url("../../assets/images/playbar.png");
             background-position: 0px -380px;
             width: 52px;
@@ -240,7 +230,6 @@
                     margin-top: 7px;
                     height: 15px;
                     width: 20px;
-                    // background-color: yellowgreen;
                     background-position: -78px -382px;
                     &:hover{
                         background-position: -78px -402px;
@@ -251,7 +240,6 @@
                     margin-top: 7px;
                     height: 15px;
                     width: 20px;
-                    // background-color: yellowgreen;
                     background-position: -99px -382px;
                     &:hover{
                         background-position: -99px -402px;

@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { filter, fromEvent, Observable, pluck, Subscription, switchMap, switchMapTo, tap } from 'rxjs';
+import { filter, fromEvent, Observable, pluck, Subscription, switchMap, switchMapTo, takeUntil, tap } from 'rxjs';
 
 export type sliderStyle = {
   width?: string|null,
@@ -56,7 +56,7 @@ export class PlayerSliderComponent implements OnInit, OnChanges, OnDestroy {
   }
   
   ngOnChanges(changes: SimpleChanges): void {
-    if(!this.vertical&&!this.mousemoved) {
+    if(!this.vertical&&!this.mouseDown) {
       this.curStyle.width = this.curPercent.toFixed(2) + '%';
       this.btnStyle["left"] = 4.93*Number(this.curPercent) +'px';
       this.rdyStyle.width = this.rdyPercent.toFixed(2) + '%';
@@ -78,7 +78,6 @@ export class PlayerSliderComponent implements OnInit, OnChanges, OnDestroy {
     this.curStyle.width = (vertical==false)? (per + "%") : '100%';
     this.curStyle.height = (vertical==true)? (per + "%") : '100%';
     this.Vol.emit(this.vol)
-    // this.Cur.emit(this.cur)
     this.setBtnPosition();
   }
 
@@ -97,23 +96,24 @@ export class PlayerSliderComponent implements OnInit, OnChanges, OnDestroy {
       this.btnStyle["left"] = len +'px'
     }
   }
-
+  
   BtnControl(){
     this.mouseup$ = fromEvent(document,'mouseup').pipe(
-      tap(e=>this.mouseDown=false),
-      tap(e=>{if(this.mousemoved){this.Cur.emit(this.cur);this.mousemoved = false}})
+      tap(e=>{if(this.mouseDown){this.Cur.emit(this.cur);this.mouseDown = false}}),
+      tap(e=>this.mousemove_.unsubscribe()),
+      tap(e=>this.mouseup_.unsubscribe())
     )
     this.mousedown$ = fromEvent<any>(this.barbg.nativeElement,'mousedown').pipe(
       tap(
         e=>{
           this.mouseDown=true;
-          this.mousemoved = true;
       }),
       pluck(this.vertical?'y':'x'),
       tap(e=>{
         const r = this.getBarPosition();
         this.setBarLength(this.vertical,r,e);
-        // this.setBtnPosition(this.vertical,e,r);
+        this.mousemove_ = this.mousemove$.subscribe();
+        this.mouseup_ = this.mouseup$.subscribe();
       })
     )
     this.mousemove$ = fromEvent<any>(document,'mousemove').pipe(
@@ -126,15 +126,10 @@ export class PlayerSliderComponent implements OnInit, OnChanges, OnDestroy {
       tap((e:number)=>{
         const r = this.getBarPosition();
         this.setBarLength(this.vertical,r,e);
-        // this.setBtnPosition();
-        // this.setBtnPosition(this.vertical,e,r);
-      })
+      }),
+      takeUntil(this.mouseup$)
     )
-
     this.mousedown_ = this.mousedown$.subscribe()
-    this.mousemove_ = this.mousemove$.subscribe()
-    this.mouseup_ = this.mouseup$.subscribe()
-
   }
 
   setRdyBarLength(){

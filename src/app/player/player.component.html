@@ -30,7 +30,7 @@
       </div>
       <div class="barwrap">
         <div class="barbg">
-          <app-playerSlider [rdyPercent]="50" (Cur)="ChangeCur($event)" [curPercent]="currentPer" [rdyPercent]="readyPer"></app-playerSlider>
+          <app-playerSlider (Cur)="ChangeCur($event)" [curPercent]="currentPer" [rdyPercent]="readyPer"></app-playerSlider>
         </div>
         <span class="time">{{audio.currentTime|minuteSeconds}}/{{audio.duration|minuteSeconds}}</span>
       </div>

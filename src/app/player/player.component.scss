@@ -1,7 +1,7 @@
 .playbar{
     position: fixed;
     bottom: 0px;
-    background-color: grey;
+    // background-color: grey;
     background-image: url("../../assets/images/playbar.png");
     background-position: 0px -6px;
     // background-repeat: repeat-x;
@@ -213,6 +213,7 @@
     }
     .updn{
         .locker{
+            // background-color: red;
             // margin-left: 50px;
             position: relative;
             display: flex;
@@ -221,8 +222,9 @@
             top: -20px;
             background-image: url("../../assets/images/playbar.png");
             background-position: 0px -380px;
-            width: 52px;
+            width: 50px;
             height: 67px;
+            // height: 22px;
             i{
                 background-image: url("../../assets/images/playbar.png");
                 &.unlock{
@@ -240,9 +242,9 @@
                     margin-top: 7px;
                     height: 15px;
                     width: 20px;
-                    background-position: -99px -382px;
+                    background-position: -97px -382px;
                     &:hover{
-                        background-position: -99px -402px;
+                        background-position: -97px -402px;
                     }
                 }
             }

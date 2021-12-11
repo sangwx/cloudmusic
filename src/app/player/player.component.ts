@@ -40,11 +40,11 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     this.audio = this.audioRef.nativeElement;
     this.audio.volume = 0.5;
     this.audio.src = '';
+    this.loadSong();
     fromEvent(this.audio,'timeupdate').subscribe(
       e=>{
         this.currentPer = (this.audio.currentTime / this.audio.duration) * 100
         if(this.currentPer==100){
-          // this.currentPer = 0;
           this.next()
         }
         if(this.audio.buffered.length){
@@ -61,7 +61,6 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     this.currentSong$ = this.store$.select(getCurrentSong)
     this.playMode$ = this.store$.select(getPlayMode)
     this.playList$.subscribe(res=>console.log(res))
-    this.loadSong();
   }
 
   loadSong(){
@@ -71,59 +70,42 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     this.currentSong$.subscribe(res=>{
       console.log(res);
       this.currentSong = res;
-      if(this.playing&&this.currentSong.url&&(this.audio.src!=this.currentSong.url)){
+      if(!this.currentSong?.url){ //如果没url，暂停
+        this.audio.setAttribute("src",'');
         this.playing = false;
-        this.currentPer = 0
-        this.readyPer = 0
+        this.currentPer = 0;
+        this.readyPer = 0;
+      }else{
+        this.audio.setAttribute("src",this.currentSong?.url);
+        this.playing = false;
         this.play();
       }
     });
   }
 
   play(){
-    // console.log('Player Clicking',this.audio.src);
-    if(this.playing==false&&this.currentSong?.url){
-      // if(this.currentSong.url){
-        if(this.audio.src!=this.currentSong.url){
-          this.audio.setAttribute("src",this.currentSong.url);
-          // console.log(this.audio);  
-          this.audio.play();
-          this.playing = true;
-        }else{
-          this.audio.play()
-          this.playing = true;
-        }
-      // }else{
-      //   this.audio.setAttribute("src",'');
-      //   console.log("No Song");
-      //   // this.audio.pause();
-      //   // this.playing = false;
-      //   this.next()
-      // }
-    }else{
+    if(this.playing==false){
+      this.audio.play()
+      this.playing =true;
+    }
+    else{
       this.audio.pause();
       this.playing = false;
     }
   }
 
   next(){
-    this.currentPer = 0
-    this.readyPer = 0
     this.currentIndex += 1;
-    if(this.songList.length-1<this.currentIndex) this.currentIndex = 0
+    if(this.songList.length-1<this.currentIndex) this.currentIndex = 0;
+    this.audio.pause()
     this.store$.dispatch(SetCurrentIndex({currentIndex:this.currentIndex}))
-    this.playing=false
-    this.play()
   }
 
   pre(){
-    this.currentPer = 0
-    this.readyPer = 0
     this.currentIndex -= 1;
-    if(0>this.currentIndex) this.currentIndex = 0
+    if(0>this.currentIndex) this.currentIndex = this.songList.length-1;
+    this.audio.pause();
     this.store$.dispatch(SetCurrentIndex({currentIndex:this.currentIndex}))
-    this.playing=false
-    this.play()
   }
 
   hiddenVolumn(){
